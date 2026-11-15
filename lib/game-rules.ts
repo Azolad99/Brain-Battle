@@ -19,7 +19,6 @@ describe('Brain Battle rules', () => {
    expect(question.options).toHaveLength(4);
    expect(question.correctIndex).toBeGreaterThanOrEqual(0);
    expect(question.correctIndex).toBeLessThan(question.options.length);
-  }
  });
  it('selects six distinct questions for a match', () => {
   const selected = chooseQuestions(6);

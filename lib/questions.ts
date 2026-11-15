@@ -83,8 +83,3 @@ export function calculatePoints(correct: boolean, elapsedMs: number, doublePoint
  const speed = Math.max(0, Math.min(500, Math.floor((15000 - Math.max(0, elapsedMs)) / 30)));
  return (1000 + speed) * (doublePoints ? 2 : 1);
 }
-export function calculatePoints(correct: boolean, elapsedMs: number, doublePoints = false): number {
- if (!correct) return 0;
- const speed = Math.max(0, Math.min(500, Math.floor((15000 - Math.max(0, elapsedMs)) / 30)));
- return (1000 + speed) * (doublePoints ? 2 : 1);
-}

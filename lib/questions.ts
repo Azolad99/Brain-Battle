@@ -1,3 +1,4 @@
+import { randomInt } from 'node:crypto';
 export type Question = { id: string; category: string; prompt: string; options: [string,string,string,string]; correctIndex: number; explanation: string };
 export const QUESTIONS: Question[] = [
  {id:'q1',category:'Silly science',prompt:'Which animal has three hearts?',options:['Octopus','Penguin','Giraffe','Hamster'],correctIndex:0,explanation:'Octopuses have three hearts. Overachievers.'},
@@ -75,10 +76,12 @@ export const QUESTIONS: Question[] = [
 ];
 export function chooseQuestions(count = 6): Question[] {
  const pool = [...QUESTIONS];
- for (let i = pool.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [pool[i], pool[j]] = [pool[j], pool[i]];
- }
+for (let i = pool.length - 1; i > 0; i--) {
+  const randomIndex = randomInt(i + 1);
+  const question = pool[i];
+  pool[i] = pool[randomIndex];
+  pool[randomIndex] = question;
+}
  return pool.slice(0, count);
 }
 

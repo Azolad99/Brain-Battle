@@ -27,3 +27,11 @@ describe('Brain Battle rules', () => {
   expect(new Set(selected.map((question) => question.id)).size).toBe(6);
  });
  it('returns a whole number of questions within the available range', () => {
+  expect(chooseQuestions(0)).toHaveLength(0);
+  expect(chooseQuestions(-3)).toHaveLength(0);
+  expect(chooseQuestions(2.9)).toHaveLength(2);
+  expect(chooseQuestions(QUESTIONS.length + 5)).toHaveLength(QUESTIONS.length);
+  expect(() => chooseQuestions(Number.NaN)).toThrow(RangeError);
+  expect(() => chooseQuestions(Number.POSITIVE_INFINITY)).toThrow(RangeError);
+ });
+});

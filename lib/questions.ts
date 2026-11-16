@@ -1,4 +1,3 @@
-import { randomInt } from 'node:crypto';
 export type Question = { id: string; category: string; prompt: string; options: [string,string,string,string]; correctIndex: number; explanation: string };
 export const QUESTIONS: Question[] = [
  {id:'q1',category:'Silly science',prompt:'Which animal has three hearts?',options:['Octopus','Penguin','Giraffe','Hamster'],correctIndex:0,explanation:'Octopuses have three hearts. Overachievers.'},
@@ -76,12 +75,10 @@ export const QUESTIONS: Question[] = [
 ];
 export function chooseQuestions(count = 6): Question[] {
  const pool = [...QUESTIONS];
-for (let i = pool.length - 1; i > 0; i--) {
-  const randomIndex = randomInt(i + 1);
-  const question = pool[i];
-  pool[i] = pool[randomIndex];
-  pool[randomIndex] = question;
-}
+ for (let i = pool.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [pool[i], pool[j]] = [pool[j], pool[i]];
+ }
  return pool.slice(0, count);
 }
 
@@ -89,4 +86,6 @@ export function calculatePoints(correct: boolean, elapsedMs: number, doublePoint
  if (!correct) return 0;
  const speed = Math.max(0, Math.min(500, Math.floor((15000 - Math.max(0, elapsedMs)) / 30)));
  return (1000 + speed) * (doublePoints ? 2 : 1);
+}
+
 }

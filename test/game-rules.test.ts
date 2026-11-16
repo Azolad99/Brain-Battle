@@ -26,4 +26,4 @@ describe('Brain Battle rules', () => {
   expect(selected).toHaveLength(6);
   expect(new Set(selected.map((question) => question.id)).size).toBe(6);
  });
-});
+ it('returns a whole number of questions within the available range', () => {

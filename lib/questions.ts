@@ -75,19 +75,16 @@ export const QUESTIONS: Question[] = [
 ];
 export function chooseQuestions(count = 6): Question[] {
  const pool = [...QUESTIONS];
+ const selectionCount = Math.max(0, Math.min(pool.length, Math.floor(count)));
 
- for (let i = pool.length - 1; i > 0; i--) {
-  const randomIndex = Math.floor(Math.random() * (i + 1));
-  const question = pool[i];
-  pool[i] = pool[randomIndex];
-  pool[randomIndex] = question;
+ for (let i = 0; i < selectionCount; i++) {
+  const randomIndex = i + Math.floor(Math.random() * (pool.length - i));
+  [pool[i], pool[randomIndex]] = [pool[randomIndex], pool[i]];
  }
 
- return pool.slice(0, count);
+ return pool.slice(0, selectionCount);
 }
 
 export function calculatePoints(correct: boolean, elapsedMs: number, doublePoints = false): number {
  if (!correct) return 0;
  const speed = Math.max(0, Math.min(500, Math.floor((15000 - Math.max(0, elapsedMs)) / 30)));
-
-}
